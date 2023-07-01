@@ -5,21 +5,39 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "./utils/EventOwnable.sol";
 
 contract Event is ERC721URIStorage, EventOwnable {
-    uint256 public totalSupply;
+    uint256 public ticketSupply;
+    uint256 immutable public maxTicketSupply;
 
-    constructor(address _ticketPlace, address owner)
+    uint256 immutable eventStart;
+    uint256 immutable public ticketPrice;
+
+    constructor(
+        address ticketPlace, 
+        address owner,
+        uint256 _maxTicketSupply, 
+        uint256 _eventStart, 
+        uint256 _ticketPrice)
         ERC721("Ticket", "T")
-        EventOwnable(owner) 
+        EventOwnable(owner, ticketPlace) 
     {
-        ticketPlace = _ticketPlace;
+        maxTicketSupply = _maxTicketSupply;
+        eventStart = _eventStart;
+        ticketPrice = _ticketPrice;
     }
 
     function safeMint(address owner, string memory uri) 
         public 
         onlyOwnerOrTicketPlace 
     {
-        ++ totalSupply;
-        _safeMint(owner, totalSupply);
-        _setTokenURI(totalSupply, uri);
+        require(ticketSupply + 1 <= maxTicketSupply);
+        require(eventStart > block.timestamp);
+
+        ++ ticketSupply;
+        _safeMint(owner, ticketSupply);
+        _setTokenURI(ticketSupply, uri);
+    }
+
+    function getTicketPrice() public view returns(uint256) {
+        return ticketPrice;
     }
 }

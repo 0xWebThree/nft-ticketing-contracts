@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/utils/Context.sol";
 
 abstract contract EventOwnable is Context {
-    address public ticketPlace;
+    address immutable public ticketPlace;
     address private _owner;
 
     event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
@@ -12,7 +12,8 @@ abstract contract EventOwnable is Context {
     /**
      * @dev Initializes the contract setting passed address as the initial owner.
      */
-    constructor(address owner_) {
+    constructor(address owner_, address _ticketPlace) {
+        ticketPlace = _ticketPlace;
         _transferOwnership(owner_);
     }
 

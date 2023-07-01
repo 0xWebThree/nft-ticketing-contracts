@@ -2,14 +2,24 @@
 pragma solidity ^0.8.20;
 
 import "./Event.sol";
-import "./Organizations.sol";
 
-contract Factory is Organizations {
+abstract contract Factory {
     event EventCreated(address _event);
 
-    function createEvent() public returns(Event newEventContract) {
-        newEventContract = new Event(address(this), msg.sender);
-        emit EventCreated(address(newEventContract)); 
+    function _createEventContract(
+        uint256 maxTicketSupply, 
+        uint256 eventStart, 
+        uint256 ticketPrice
+    ) internal returns(address newEvent) {
+        Event newEventContract = new Event(
+            address(this),
+            msg.sender,
+            maxTicketSupply, 
+            eventStart, 
+            ticketPrice
+        );
+        newEvent = address(newEventContract);
+        emit EventCreated(newEvent); 
     }
 
 }
