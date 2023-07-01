@@ -25,16 +25,21 @@ contract Event is ERC721URIStorage, EventOwnable {
         ticketPrice = _ticketPrice;
     }
 
-    function safeMint(address owner, string memory uri) 
-        public 
-        onlyOwnerOrTicketPlace 
-    {
+    /** 
+     * @custom:proposal обдумать с uri (защита?)
+    */
+    function buyTicket(uint256 ticketId, string memory uri) external payable {
+        require(msg.value == ticketPrice);
+        _ticketMint(_msgSender(), ticketId, uri);
+    }
+
+    function _ticketMint(address owner, uint256 ticketId, string memory uri) private {
         require(ticketSupply + 1 <= maxTicketSupply);
         require(eventStart > block.timestamp);
 
         ++ ticketSupply;
-        _safeMint(owner, ticketSupply);
-        _setTokenURI(ticketSupply, uri);
+        _safeMint(owner, ticketId);
+        _setTokenURI(ticketId, uri);
     }
 
     function getTicketPrice() public view returns(uint256) {
