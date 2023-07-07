@@ -10,14 +10,20 @@ contract Marketplace is Factory, Organizations {
     function createEvent(
         uint256 maxTicketSupply, 
         uint256 eventStart, 
-        uint256 ticketPrice
+        uint256 ticketPrice,
+        string memory ticketBaseURI
     ) external onlyVerified
     {
         require(maxTicketSupply != 0);
         require(eventStart > block.timestamp);
         require(ticketPrice != 0);
 
-        address newEvent = _createEventContract(maxTicketSupply, eventStart, ticketPrice);
+        address newEvent = _createEventContract(
+            maxTicketSupply,
+            eventStart, 
+            ticketPrice, 
+            ticketBaseURI
+        );
         organization[msg.sender].events[numberOfEvents[msg.sender]] = newEvent;
         ++ numberOfEvents[msg.sender];
     }

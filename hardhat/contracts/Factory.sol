@@ -9,14 +9,16 @@ abstract contract Factory {
     function _createEventContract(
         uint256 maxTicketSupply, 
         uint256 eventStart, 
-        uint256 ticketPrice
+        uint256 ticketPrice,
+        string memory ticketBaseURI
     ) internal returns(address newEvent) {
         Event newEventContract = new Event(
             address(this),
             msg.sender,
             maxTicketSupply, 
             eventStart, 
-            ticketPrice
+            ticketPrice,
+            ticketBaseURI
         );
         newEvent = address(newEventContract);
         emit EventCreated(newEvent); 

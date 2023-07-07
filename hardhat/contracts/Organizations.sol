@@ -16,9 +16,6 @@ abstract contract Organizations is Ownable2Step {
         _;
     }
 
-    /** 
-     * @custom:proposal банчами сделать?
-    */
     function addVerifiedCompany(address _organization) public onlyOwner {
         organization[_organization].inWhitelist = true;
     }
