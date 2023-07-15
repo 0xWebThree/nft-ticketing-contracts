@@ -8,9 +8,12 @@ contract Marketplace is Factory, Organizations {
     mapping(address => uint256) public numberOfEvents;
 
     function createEvent(
+        string memory name,
+        string memory symbol,
         uint256 maxTicketSupply, 
         uint256 eventStart, 
         uint256 ticketPrice,
+        bool transferable,
         string memory ticketBaseURI
     ) external onlyVerified
     {
@@ -19,9 +22,12 @@ contract Marketplace is Factory, Organizations {
         require(ticketPrice != 0);
 
         address newEvent = _createEventContract(
+            name,
+            symbol,
             maxTicketSupply,
             eventStart, 
             ticketPrice, 
+            transferable,
             ticketBaseURI
         );
         organization[msg.sender].events[numberOfEvents[msg.sender]] = newEvent;

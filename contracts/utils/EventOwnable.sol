@@ -31,7 +31,8 @@ abstract contract EventOwnable is Context {
     modifier onlyOwnerOrTicketPlace() {
         require(
             _checkOwner() || msg.sender == ticketPlace,
-            "Ownable: caller is not the owner or the TicketPlace");
+            "Ownable: caller is not the owner or the TicketPlace"
+        );
         _;
     }
 

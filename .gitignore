@@ -8,6 +8,7 @@ typechain-types
 # Hardhat files
 cache
 artifacts
-
-scripts
 test
+
+# Dev files
+secrets.json
