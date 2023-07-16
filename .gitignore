@@ -11,4 +11,4 @@ artifacts
 test
 
 # Dev files
-secrets.json
+.secrets
