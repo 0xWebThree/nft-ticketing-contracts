@@ -2,9 +2,10 @@
 pragma solidity ^0.8.19;
 
 import "./Event.sol";
+import "@openzeppelin/contracts/utils/Context.sol";
 
-abstract contract Factory {
-    event EventCreated(address _event);
+abstract contract Factory is Context {
+    event EventCreated(address indexed organization, address _event);
 
     function _createEventContract(
         string memory name,
@@ -12,8 +13,7 @@ abstract contract Factory {
         uint256 maxTicketSupply, 
         uint256 eventStart, 
         uint256 ticketPrice,
-        bool _transferable,
-        string memory ticketBaseURI
+        bool transferable
     ) 
         internal returns(address newEvent) 
     {
@@ -21,15 +21,13 @@ abstract contract Factory {
             name,
             symbol,
             address(this),
-            msg.sender,
             maxTicketSupply, 
             eventStart, 
             ticketPrice,
-            _transferable,
-            ticketBaseURI
+            transferable
         );
         newEvent = address(newEventContract);
-        emit EventCreated(newEvent); 
-    }
 
+        emit EventCreated(_msgSender(), newEvent); 
+    }
 }

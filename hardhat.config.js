@@ -2,13 +2,19 @@ require("@nomicfoundation/hardhat-toolbox");
 const fs = require('fs');
 
 require('dotenv').config({ path: '.env'});
-const { SIB_PROVIDER } = process.env;
+const SIB_PROVIDER = process.env.SIB_PROVIDER;
 
 const PRIVATE_KEY = fs.readFileSync(".secrets").toString();
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: "0.8.19", // Recommended use latest solc & solidity version
+  paths: {
+    sources: "./contracts",
+    tests: "hardhat/test",
+    cache: "hardhat/cache",
+    artifacts: "hardhat/artifacts"
+  },
   networks: {
     /*
     sepolia: {

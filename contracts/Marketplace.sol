@@ -2,10 +2,9 @@
 pragma solidity ^0.8.19;
 
 import "./Factory.sol";
-import "./Organizations.sol";
 
-contract Marketplace is Factory, Organizations {
-    mapping(address => uint256) public numberOfEvents;
+contract Marketplace is Factory {
+    address[] public allEvents;
 
     function createEvent(
         string memory name,
@@ -13,9 +12,9 @@ contract Marketplace is Factory, Organizations {
         uint256 maxTicketSupply, 
         uint256 eventStart, 
         uint256 ticketPrice,
-        bool transferable,
-        string memory ticketBaseURI
-    ) external onlyVerified
+        bool transferable
+    ) 
+        external
     {
         require(maxTicketSupply != 0);
         require(eventStart > block.timestamp);
@@ -27,10 +26,21 @@ contract Marketplace is Factory, Organizations {
             maxTicketSupply,
             eventStart, 
             ticketPrice, 
-            transferable,
-            ticketBaseURI
+            transferable
         );
-        organization[msg.sender].events[numberOfEvents[msg.sender]] = newEvent;
-        ++ numberOfEvents[msg.sender];
+
+        allEvents.push(newEvent);
+    }
+
+    function getAllEvents() external view returns(address[] memory) {
+        return allEvents;
+    }
+
+    function getEventAddress(uint256 eventId) 
+        public 
+        view 
+        returns (address) 
+    {
+       return allEvents[eventId];
     }
 }
