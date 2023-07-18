@@ -12,7 +12,7 @@ npm install
 ```bash
 npx hardhat compile
 ```
-### Run deploy/migrations
+### Run deploy
 ```bash
 npx hardhat run scripts/deploy.js --network siberium
 ```
