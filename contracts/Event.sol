@@ -35,15 +35,15 @@ contract Event is ERC721URIStorage, Ownable {
     }
 
     function buyTicket(uint256 ticketId, string memory uri) external payable {
-        require(msg.value == ticketPrice);
+        require(msg.value == ticketPrice, "Sended value isn't equal to ticket price");
 
         _ticketMint(_msgSender(), ticketId);
         _setTokenURI(ticketId, uri);
     }
 
     function _ticketMint(address owner, uint256 ticketId) private {
-        require(ticketSupply + 1 <= maxTicketSupply);
-        require(eventStart > block.timestamp);
+        require(ticketSupply + 1 <= maxTicketSupply, "Minting more tokens is forbidden");
+        require(eventStart > block.timestamp, "Start date cannot be less than current time");
 
         ++ ticketSupply;
         _safeMint(owner, ticketId);

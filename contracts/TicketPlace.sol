@@ -3,7 +3,7 @@ pragma solidity ^0.8.19;
 
 import "./Factory.sol";
 
-contract Marketplace is Factory {
+contract TicketPlace is Factory {
     address[] public allEvents;
 
     function createEvent(
@@ -16,9 +16,9 @@ contract Marketplace is Factory {
     ) 
         external
     {
-        require(maxTicketSupply != 0);
-        require(eventStart > block.timestamp);
-        require(ticketPrice != 0);
+        require(maxTicketSupply != 0, "Max ticket supply cannot be zero");
+        require(eventStart > block.timestamp, "Start date cannot be less than current time");
+        require(ticketPrice != 0, "Ticket price cannot be zero");
 
         address newEvent = _createEventContract(
             name,

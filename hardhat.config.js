@@ -8,9 +8,9 @@ const PRIVATE_KEY = fs.readFileSync(".secrets").toString();
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
-  solidity: "0.8.19", // Recommended use latest solc & solidity version
+  solidity: "0.8.19", 
   paths: {
-    sources: "./contracts",
+    sources: "./flatten",
     tests: "hardhat/test",
     cache: "hardhat/cache",
     artifacts: "hardhat/artifacts"

@@ -18,5 +18,5 @@ npx hardhat run scripts/deploy.js --network siberium
 ```
 ### Flatten contracts
 ```bash
-npx hardhat flatten > Flattened.sol
+npx hardhat flatten > flatten/Marketplace.sol
 ```
