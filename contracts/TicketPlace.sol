@@ -23,6 +23,7 @@ contract TicketPlace is Factory {
         address newEvent = _createEventContract(
             name,
             symbol,
+            msg.sender,
             maxTicketSupply,
             eventStart, 
             ticketPrice, 

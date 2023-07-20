@@ -10,6 +10,7 @@ abstract contract Factory is Context {
     function _createEventContract(
         string memory name,
         string memory symbol,
+        address owner,
         uint256 maxTicketSupply, 
         uint256 eventStart, 
         uint256 ticketPrice,
@@ -20,7 +21,7 @@ abstract contract Factory is Context {
         Event newEventContract = new Event(
             name,
             symbol,
-            address(this),
+            owner,
             maxTicketSupply, 
             eventStart, 
             ticketPrice,

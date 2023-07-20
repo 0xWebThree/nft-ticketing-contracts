@@ -84,7 +84,7 @@ contract Event is ERC721URIStorage, Ownable {
     }
 
     function _transfer(address from, address to, uint256 tokenId) internal override {
-       require(transferable || (owner() == _msgSender()), "Tickets aren't transferable");
+       require(transferable || (owner() == _msgSender() || from == address(0)), "Tickets aren't transferable");
        super._transfer(from, to, tokenId);
     }
 }
